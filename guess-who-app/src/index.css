@@ -1,0 +1,53 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-dark: #0a0a1a;
+  --bg-card: #1a1a2e;
+  --bg-card-hover: #252545;
+  --accent-primary: #FF6B6B;
+  --accent-secondary: #4ECDC4;
+  --accent-tertiary: #45B7D1;
+  --accent-gold: #FFD93D;
+  --accent-purple: #A855F7;
+  --text-primary: #EAEAEA;
+  --text-secondary: #8888AA;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-glow: rgba(78, 205, 196, 0.3);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 30px rgba(78, 205, 196, 0.15);
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-ui);
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
