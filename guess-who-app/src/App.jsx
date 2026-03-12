@@ -92,10 +92,12 @@ function App() {
   }, []);
 
   const handleReset = useCallback(() => {
+    localStorage.removeItem('guess-who-seed');
     setGuessedIds(new Set());
     setSelectedPerson(null);
     setShowVictory(false);
     audioEngine.playSelect();
+    window.location.reload();
   }, []);
 
   return (

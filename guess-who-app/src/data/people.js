@@ -27,6 +27,14 @@ const WOMEN_FILES = new Set([
   'priyanka_punukollu',
 ]);
 
+function seededRandom(seed) {
+  let s = seed;
+  return () => {
+    s = (s * 16807 + 0) % 2147483647;
+    return (s - 1) / 2147483646;
+  };
+}
+
 function fileNameToName(filename) {
   // "aaron_carney.jpg" -> "Aaron Carney"
   const base = filename.replace(/\.jpg$/, '');
@@ -60,10 +68,27 @@ function buildPeople() {
     });
   });
 
-  // Sort alphabetically by name
-  people.sort((a, b) => a.name.localeCompare(b.name));
-  // Re-assign IDs after sort
-  people.forEach((p, i) => { p.id = i + 1; });
+  // Assign stable IDs based on name so localStorage state works
+  people.forEach(p => {
+    let hash = 0;
+    for (let i = 0; i < p.name.length; i++) {
+      hash = ((hash << 5) - hash) + p.name.charCodeAt(i);
+      hash |= 0;
+    }
+    p.id = Math.abs(hash);
+  });
+
+  // Seeded shuffle — same seed = same order, new game = new order
+  let seed = parseInt(localStorage.getItem('guess-who-seed'), 10);
+  if (!seed) {
+    seed = Math.floor(Math.random() * 2147483647);
+    localStorage.setItem('guess-who-seed', seed);
+  }
+  const seeded = seededRandom(seed);
+  for (let i = people.length - 1; i > 0; i--) {
+    const j = Math.floor(seeded() * (i + 1));
+    [people[i], people[j]] = [people[j], people[i]];
+  }
 
   return people;
 }
